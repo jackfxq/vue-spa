@@ -2,7 +2,7 @@
   <div id="app">
     <img src="./assets/logo.png">
     <router-view></router-view>
-    <div>test1</div>
+    <div>vue spa</div>
   </div>
 
 </template>
