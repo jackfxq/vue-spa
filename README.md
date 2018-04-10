@@ -23,6 +23,7 @@ npm run unit
 # run all tests
 npm test
 ```
-测试
+测试1112222
+测试1112222
 
 For detailed explanation on how things work, checkout the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
