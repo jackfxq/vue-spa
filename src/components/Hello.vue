@@ -27,7 +27,7 @@ export default {
   name: 'hello',
   data () {
     return {
-      msg: 'Welcome to use vue.js11'
+      msg: 'Welcome to use vue.js1122'
     }
   },
   created() {
