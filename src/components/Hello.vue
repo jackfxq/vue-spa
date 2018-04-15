@@ -21,12 +21,19 @@
 </template>
 
 <script>
+import axios from 'axios'
+
 export default {
   name: 'hello',
   data () {
     return {
       msg: 'Welcome to use vue.js'
     }
+  },
+  created() {
+    axios.get('http://111.230.35.213:3000/express').then(function (response) {
+    console.log(response);
+  })
   }
 }
 </script>
