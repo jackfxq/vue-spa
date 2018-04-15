@@ -25,7 +25,7 @@ export default {
   name: 'hello',
   data () {
     return {
-      msg: 'Welcome to vue.js 222333333'
+      msg: 'Welcome to use vue.js'
     }
   }
 }
