@@ -31,7 +31,7 @@ export default {
     }
   },
   created() {
-    axios.get('http://111.230.35.213:3000/express').then(function (response) {
+    axios.get('/express').then(function (response) {
     console.log(response);
   })
   }
