@@ -4,7 +4,7 @@
       <p v-for="item in category" :class="['mk-'+item.tag]" @click="handleClick(item.id)">{{item.text}}</a>
     </div>
     <div class="list-see-content" v-html="htmlStr">
-      <!-- <div ></div> -->
+      <!-- <div  class="html-content"></div> -->
     </div>
 
   </div>
@@ -67,6 +67,7 @@ export default {
       let mk = this.$el.querySelector('#mk'+id);
       this.$nextTick(() => {
         this.$el.querySelector('.list-see-content').scrollTop=mk.offsetTop;
+        // this.$el.querySelector('.html-content').style.top=-mk.offsetTop+'px';
       })
     }
   },
@@ -104,6 +105,11 @@ export default {
 </script>
 
 <style lang="css">
+blockquote{
+  margin: 2em 0;
+padding-left: 20px;
+border-left: 4px solid #42b983;
+}
 body{
   margin: 0
 }
@@ -138,11 +144,13 @@ border-radius: 3px;
   display: flex;
   flex-direction: row;
   align-items: stretch;
+  /*max-width: 1000px;*/
+  /*margin: 0 auto;*/
 }
 .category{
   width: 300px;
   border-right: #ddd 5px solid;
-  padding:10px
+  padding:10px 0 0 20px
 }
 .category p{
   cursor: pointer;
@@ -160,5 +168,6 @@ border-radius: 3px;
   height: 100vh;
   overflow-y: auto;
   position: relative;
+  max-width: 700px
 }
 </style>
