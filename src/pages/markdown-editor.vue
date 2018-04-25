@@ -1,8 +1,14 @@
 <template>
   <div class=markdown-container>
-    <textarea v-model="txt" style="width:600px;height:200px"></textarea>
-    <button type="button" name="button" @click="update">保存</button>
-    <div v-html="htmlStr"></div>
+    <div class=markdown-content>
+      <div class=editor-region>
+        <textarea v-model="txt"></textarea>
+      </div>
+      <div class=preview-region>
+        <div v-html="htmlStr"></div>
+      </div>
+    </div>
+    <button class=save-btn type="button" name="button" @click="update">保存</button>
   </div>
 </template>
 
@@ -87,20 +93,77 @@ h1,h2{
   border-bottom: 1px solid #eaecef;
 }
 
-code{
+/* code{
   padding: 0.1em 0.2em;
   background-color: #f6f8fa;
   border-radius: 3px;
-}
+} */
 .markdown-container{
   text-align: left;
 }
-pre{
+/* pre{
   padding: 16px;
 overflow: auto;
 font-size: 85%;
 line-height: 1.45;
 background-color: #f6f8fa;
 border-radius: 3px;
-}
+} */
+</style>
+
+<style lang="css" scoped>
+  .markdown-container{
+    
+    position: fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+  }
+  .markdown-content{
+    display:flex;
+    flex-direction: row;
+    align-items: stretch;
+    margin-top:20px;
+    width:100%;
+    height:90%;
+    border-bottom:1px #ccc solid;
+    border-top:1px #ccc solid;
+  }
+  .editor-region{
+    padding:10px 0 10px 10px;
+    height:100%;
+    box-sizing: border-box;
+  }
+  .editor-region textarea{
+    border:none;
+    width:600px;
+    height:100%;
+    outline:none;
+  }
+  .editor-region textarea:focus{
+    border:none;
+  }
+  .preview-region{
+    padding:10px 20px;
+    height:100%;
+    border-left:1px #ccc solid;
+    box-sizing: border-box;
+    overflow: hidden;
+    overflow-y: auto;
+  }
+  .save-btn{
+    position: absolute;
+    width: 100px;
+    bottom: 10px;
+    left: 50%;
+    margin-left: -50px;
+    cursor: pointer;
+    background: #00a3cf;
+    border: none;
+    color:#fff;
+    padding: 5px;
+    border-radius:5px;
+    outline:none;
+  }
 </style>

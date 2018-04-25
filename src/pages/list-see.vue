@@ -1,7 +1,9 @@
 <template>
   <div class=markdown-container>
     <div class="category">
-      <p v-for="item in category" :class="['mk-'+item.tag]" @click="handleClick(item.id)">{{item.text}}</a>
+      <div style="width:245px">
+        <p v-for="item in category" :class="['mk-'+item.tag]" @click="handleClick(item.id)">{{item.text}}</a>
+      </div>
     </div>
     <div class="list-see-content" v-html="htmlStr">
       <!-- <div  class="html-content"></div> -->
@@ -15,7 +17,7 @@ import axios from 'axios'
 import marked from 'marked'
 import hljs from  'highlight.js'
 import showdown from 'showdown'
-import 'highlight.js/styles/default.css'
+import 'highlight.js/styles/xt256.css'
 // import './heighlight.css'
 
 console.log(hljs)
@@ -31,11 +33,12 @@ marked.setOptions({
   smartLists: true,
   smartypants: false,
   highlight: function (code, lang) {
-          if (lang && hljs.getLanguage(lang)) {
-            return hljs.highlight(lang, code, true).value;
-          } else {
-            return hljs.highlightAuto(code).value;
-          }
+          // if (lang && hljs.getLanguage(lang)) {
+          //   return hljs.highlight(lang, code, true).value;
+          // } else {
+          //   return hljs.highlightAuto(code).value;
+          // }
+          return hljs.highlightAuto(code).value;
       }
 
 });
@@ -62,9 +65,9 @@ export default {
       // }).then((response) => {
       //   this.htmlStr=response.data.data.html;
       // })
-      // this.htmlStr=marked(this.txt);
-      this.converter = new showdown.Converter();
-      this.htmlStr = this.converter.makeHtml(this.txt);
+      this.htmlStr=marked(this.txt);
+      // this.converter = new showdown.Converter();
+      // this.htmlStr = this.converter.makeHtml(this.txt);
     },
     handleClick(id) {
       console.log(this.$el.querySelector('#mk'+id))
@@ -128,8 +131,63 @@ h2,h3{
 }
 
 code{
+    color: #476582;
+    padding: .25rem .5rem;
+    margin: 0;
+    font-size: .85em;
+    background-color: rgba(27,31,35,.05);
+    border-radius: 3px;
+}
+code[class*=lang-]{
+  color:#eaecef
+}
+.lang-html::before{
+  content:'html';
+  position: absolute;
+  top: .8em;
+  right: 1em;
+  font-size: .75rem;
+  color: hsla(0,0%,100%,.4);
+}
+.lang-js::before{
+  content:'js';
+  position: absolute;
+  top: .8em;
+  right: 1em;
+  font-size: .75rem;
+  color: hsla(0,0%,100%,.4);
+}
+.lang-javaScript::before{
+  content:'javaScript';
+  position: absolute;
+  top: .8em;
+  right: 1em;
+  font-size: .75rem;
+  color: hsla(0,0%,100%,.4);
+}
+.lang-javascript::before{
+  content:'javaScript';
+  position: absolute;
+  top: .8em;
+  right: 1em;
+  font-size: .75rem;
+  color: hsla(0,0%,100%,.4);
+}
+pre{
+    background-color: #282c34;
+    line-height: 1.4;
+    border-radius: 6px;
+    padding: 1.25rem 1.5rem;
+    margin: .85rem 0;
+    white-space: pre-wrap;
+    word-break: break-word;
+    overflow: auto;
+    position: relative;
+}
+
+/* code{
   padding: 0.1em 0.2em;
-  background-color: #f6f8fa;
+  background-color: #282c34;
   border-radius: 3px;
 }
 
@@ -138,9 +196,9 @@ pre{
 overflow: auto;
 font-size: 85%;
 line-height: 1.45;
-background-color: #f6f8fa;
+background-color: #282c34;
 border-radius: 3px;
-}
+} */
 </style>
 
 <style lang="css" scoped>
@@ -152,7 +210,7 @@ border-radius: 3px;
   /*margin: 0 auto;*/
 }
 .category{
-  width: 300px;
+  /* width: 300px; */
   border-right: #ddd 5px solid;
   padding:10px 0 0 20px
 }
@@ -176,6 +234,6 @@ border-radius: 3px;
   height: 100vh;
   overflow-y: auto;
   position: relative;
-  max-width: 700px
+  max-width: 800px
 }
 </style>
