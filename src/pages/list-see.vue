@@ -14,6 +14,7 @@
 import axios from 'axios'
 import marked from 'marked'
 import hljs from  'highlight.js'
+import showdown from 'showdown'
 import 'highlight.js/styles/default.css'
 // import './heighlight.css'
 
@@ -44,7 +45,8 @@ export default {
     return {
       txt:'# Marked in the browser\n\nRendered by **marked**.\n```js\n console.log("hello"); \n```',
       htmlStr:'',
-      category:[]
+      category:[],
+      converter:null
     }
   },
   watch:{
@@ -60,7 +62,9 @@ export default {
       // }).then((response) => {
       //   this.htmlStr=response.data.data.html;
       // })
-      this.htmlStr=marked(this.txt);
+      // this.htmlStr=marked(this.txt);
+      this.converter = new showdown.Converter();
+      this.htmlStr = this.converter.makeHtml(this.txt);
     },
     handleClick(id) {
       console.log(this.$el.querySelector('#mk'+id))
@@ -146,13 +150,17 @@ border-radius: 3px;
 }
 .category p{
   cursor: pointer;
-  color: #f57;
+  color: #333;
   margin: 10px 0
 }
+
 .mk-h3{
   color: #333 !important;
   padding-left: 20px;
   font-size:16px
+}
+.category p:hover{
+  color: #0a951a !important;
 }
 .list-see-content{
   width: 100%;
