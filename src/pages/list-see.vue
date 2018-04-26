@@ -80,7 +80,7 @@ export default {
   },
   created() {
     console.log(this.$route.params.id)
-    axios.get('/api/list/find',{
+    axios.get('http://111.230.35.213:3000/api/list/find',{
       params:{
         id:this.$route.params.id
       }

@@ -20,7 +20,7 @@ export default {
   },
   methods:{
     create() {
-      axios.post('/api/list/create').then((response) => {
+      axios.post('http://111.230.35.213:3000/api/list/create').then((response) => {
         console.log(response)
         this.list.push({
           id:response.data.data.id
@@ -28,7 +28,7 @@ export default {
       })
     },
     findAll() {
-      axios.get('/api/list/findAll').then((response) => {
+      axios.get('http://111.230.35.213:3000/api/list/findAll').then((response) => {
         console.log(response)
         this.list=response.data.data;
       })
