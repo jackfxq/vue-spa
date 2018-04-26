@@ -16,7 +16,7 @@
 import axios from 'axios'
 import marked from 'marked'
 import hljs from  'highlight.js'
-import 'highlight.js/styles/default.css'
+import 'highlight.js/styles/vs2015.css'
 // import './heighlight.css'
 
 console.log(hljs)

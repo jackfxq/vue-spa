@@ -17,7 +17,7 @@ import axios from 'axios'
 import marked from 'marked'
 import hljs from  'highlight.js'
 import showdown from 'showdown'
-import 'highlight.js/styles/xt256.css'
+import 'highlight.js/styles/vs2015.css'
 // import './heighlight.css'
 
 console.log(hljs)
