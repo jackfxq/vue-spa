@@ -1,5 +1,21 @@
 <template>
   <div class=markdown-container>
+    <div class="markdown-tool">
+      <h1 @click="addTitle(1)">H1</h1>
+      <h1 @click="addTitle(2)">H2</h1>
+      <h1 @click="addTitle(3)">H3</h1>
+      <h1 @click="addTitle(4)" style="padding-right:10px">H4</h1>
+      <div @click="toolChange('**{tpl}**')" class="tool-bold">B</div>
+      <div @click="toolChange('~~{tpl}~~')" class="tool-item" style="text-decoration:line-through">S</div>
+      <div @click="toolChange('*{tpl}*')" class="tool-item" style="font-style:italic;">I</div>
+      <div @click="fristUp" class="tool-item">Aa</div>
+      <div @click="strUp" class="tool-item">A</div>
+      <div @click="strDown" class="tool-item" style="line-height:30px;border-right:1px rgba(256,256,256,0.5) solid;padding-right:10px">a</div>
+      <div @click="toolChange('1. {tpl}')" class="tool-item">
+        <Icon type="navicon"></Icon>
+      </div>
+      <div class="tool-save"><span @click="update">保存</span></div>
+    </div>
     <div class=markdown-content>
       <div class=editor-region>
         <!-- <textarea v-model="txt"></textarea> -->
@@ -9,7 +25,7 @@
         <div v-html="htmlStr"></div>
       </div>
     </div>
-    <button class=save-btn type="button" name="button" @click="update">保存</button>
+    <!-- <button class=save-btn type="button" name="button" @click="update">保存</button> -->
     <!-- <button @click="add">增加###</button> -->
   </div>
 </template>
@@ -78,11 +94,31 @@ export default {
         // this.htmlStr=response.data.data.html;
       })
     },
-    add() {
-      console.log(this.editor.getSelection())
+    addTitle(num) {
+      console.log(this.editor.getSelection(),new Array(num+1).join("#"))
       let selection = this.editor.getSelection();
-      // this.editor.replaceSelection(`### ${selection}`)
-      this.editor.replaceSelection(`![]()`)
+      this.editor.replaceSelection(`${new Array(num+1).join("#")} ${selection}`)
+      // this.editor.replaceSelection(`![]()`)
+    },
+    handleBold() {
+      let selection = this.editor.getSelection();
+      this.editor.replaceSelection(`**${selection}**`)
+    },
+    toolChange(str) {
+      let selection = this.editor.getSelection();
+      this.editor.replaceSelection(str.replace('{tpl}',selection))
+    },
+    fristUp() {
+      let selection = this.editor.getSelection();
+      this.editor.replaceSelection(selection.toLowerCase().replace(/^[a-z]/,(a) => a.toUpperCase()));
+    },
+    strUp() {
+      let selection = this.editor.getSelection();
+      this.editor.replaceSelection(selection.toUpperCase());
+    },
+    strDown() {
+      let selection = this.editor.getSelection();
+      this.editor.replaceSelection(selection.toLowerCase());
     }
   },
   created() {
@@ -146,20 +182,79 @@ border-radius: 3px;
 
 <style lang="css" scoped>
   .markdown-container{
-    
+    margin-top:40px;
     position: fixed;
     top:0;
     left:0;
     width:100%;
     height:100%;
   }
+  .markdown-tool{
+    height:40px;
+    width:100%;
+    background-color:#05355f;
+    display:flex;
+    flex-direction:row;
+    align-items: center;
+    /* justify-content:center; */
+    padding:0 10px;
+    position: fixed;
+    top:0;
+    left:0;
+    color:#fff;
+    font-size:16px;
+  }
+  h1,h2,h3,h4{
+    padding:0;
+    margin:0;
+    color:#fff;
+    font-size:16px;
+    font-weight:normal;
+    border:none;
+    line-height:40px;
+    cursor: pointer;
+    padding:0px 5px
+
+  }
+  h1:hover,h2:hover,h3:hover,h4:hover,.tool-bold:hover{
+    color:#f57
+  }
+
+  .tool-bold{
+    color:#fff;
+    border-left:1px rgba(256,256,256,0.5) solid;
+    cursor: pointer;
+    line-height:30px;
+    padding:0 5px 0 10px;
+  }
+
+  .tool-save{
+    color:#fff;
+    width:100%;
+    padding-right:20px;
+    text-align:right;
+    cursor: pointer;
+  }
+
+  .tool-save span:hover{
+    color:#f57
+  }
+
+  .tool-item{
+    padding:0 5px;
+    cursor: pointer;
+  }
+
+  .tool-item:hover{
+    color:#f57
+  }
+
   .markdown-content{
     display:flex;
     flex-direction: row;
     align-items: stretch;
-    margin-top:20px;
     width:100%;
-    height:90%;
+    height:100%;
     border-bottom:1px #ccc solid;
     border-top:1px #ccc solid;
   }
