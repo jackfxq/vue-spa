@@ -181,6 +181,9 @@ border-radius: 3px;
 </style>
 
 <style lang="css" scoped>
+  body{
+    font-size:16px;
+  }
   .markdown-container{
     margin-top:40px;
     position: fixed;
