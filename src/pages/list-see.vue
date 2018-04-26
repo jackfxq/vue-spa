@@ -1,7 +1,7 @@
 <template>
   <div class=markdown-container>
     <div class="category">
-      <div style="width:245px">
+      <div style="width:245px;overflow: hidden;overflow-y: auto;">
         <p v-for="item in category" :class="['mk-'+item.tag]" @click="handleClick(item.id)">{{item.text}}</a>
       </div>
     </div>
@@ -123,6 +123,38 @@ body{
 h1,h2{
   padding-bottom: 0.3em;
   border-bottom: 1px solid #eaecef;
+}
+
+table{
+  border-collapse: collapse;
+    border-spacing: 0;
+    display: block;
+    width: 100%;
+    overflow: auto;
+    word-break: normal;
+    word-break: keep-all;
+}
+
+tr{
+  border-top: 1px solid #ccc;
+}
+
+thead tr {
+    background-color: #F8F8F8;
+}
+
+tr:nth-child(2n) {
+  background-color: #f8f8f8;
+}
+
+td{
+  padding: 6px 13px;
+  border: 1px solid #ddd;
+}
+
+th{
+  padding: 6px 13px;
+  border: 1px solid #ddd;
 }
 
 h2,h3{
