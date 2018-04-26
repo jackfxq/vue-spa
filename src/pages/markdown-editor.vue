@@ -2,13 +2,15 @@
   <div class=markdown-container>
     <div class=markdown-content>
       <div class=editor-region>
-        <textarea v-model="txt"></textarea>
+        <!-- <textarea v-model="txt"></textarea> -->
+        <div class="code-mirror"></div>
       </div>
       <div class=preview-region>
         <div v-html="htmlStr"></div>
       </div>
     </div>
     <button class=save-btn type="button" name="button" @click="update">保存</button>
+    <!-- <button @click="add">增加###</button> -->
   </div>
 </template>
 
@@ -18,6 +20,10 @@ import marked from 'marked'
 import hljs from  'highlight.js'
 import 'highlight.js/styles/vs2015.css'
 // import './heighlight.css'
+import CodeMirror from 'codemirror/lib/codemirror'
+import 'codemirror/lib/codemirror.css'
+
+import 'codemirror/mode/markdown/markdown'
 
 console.log(hljs)
 console.log(marked)
@@ -45,7 +51,8 @@ export default {
   data() {
     return {
       txt:'',
-      htmlStr:''
+      htmlStr:'',
+      editor:null
     }
   },
   watch:{
@@ -70,6 +77,12 @@ export default {
       }).then((response) => {
         // this.htmlStr=response.data.data.html;
       })
+    },
+    add() {
+      console.log(this.editor.getSelection())
+      let selection = this.editor.getSelection();
+      // this.editor.replaceSelection(`### ${selection}`)
+      this.editor.replaceSelection(`![]()`)
     }
   },
   created() {
@@ -78,9 +91,25 @@ export default {
         id:this.$route.params.id
       }
     }).then((response) => {
-    console.log(response)
+      console.log(response)
       this.txt=response.data.data[0].str;
+      this.editor.setValue(this.txt)
       this.markdownTohtml();
+    })
+
+    this.$nextTick(() => {
+      this.editor = CodeMirror(this.$el.querySelector('.code-mirror'),{
+        mode:'markdown',
+        styleActiveLine: true,
+        lineNumbers:true,
+        tabSize:2,
+        lineWrapping: true,
+      
+      })
+
+      this.editor.on('change',() => {
+        this.txt = this.editor.getValue()
+      })
     })
 
   }
@@ -91,6 +120,10 @@ export default {
 h1,h2{
   padding-bottom: 0.3em;
   border-bottom: 1px solid #eaecef;
+}
+
+.CodeMirror{
+  height: 100% !important;
 }
 
 /* code{
@@ -131,7 +164,7 @@ border-radius: 3px;
     border-top:1px #ccc solid;
   }
   .editor-region{
-    padding:10px 0 10px 10px;
+    /* padding:10px 0 10px 10px; */
     height:100%;
     box-sizing: border-box;
   }
@@ -141,11 +174,18 @@ border-radius: 3px;
     height:100%;
     outline:none;
   }
+
+  .code-mirror{
+    width:700px;
+    height:100%;
+  }
+
   .editor-region textarea:focus{
     border:none;
   }
   .preview-region{
     padding:10px 20px;
+    width:100%;
     height:100%;
     border-left:1px #ccc solid;
     box-sizing: border-box;
