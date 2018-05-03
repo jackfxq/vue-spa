@@ -2,7 +2,7 @@
   <div class=markdown-container>
     <div class="category">
       <div style="width:245px;overflow: hidden;overflow-y: auto;">
-        <p v-for="item in category" :class="['mk-'+item.tag]" @click="handleClick(item.id)">{{item.text}}</a>
+        <p v-for="item in category" :class="['mk-'+item.tag]" @click="handleClick(item.id)">{{item.text}}</p>
       </div>
     </div>
     <div class="list-see-content" v-html="htmlStr">

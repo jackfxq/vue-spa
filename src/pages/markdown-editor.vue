@@ -1,5 +1,6 @@
 <template>
-  <div class=markdown-container>
+<div>
+<div class=markdown-container>
     <div class="markdown-tool">
       <h1 @click="addTitle(1)">H1</h1>
       <h1 @click="addTitle(2)">H2</h1>
@@ -12,8 +13,9 @@
       <div @click="strUp" class="tool-item">A</div>
       <div @click="strDown" class="tool-item" style="line-height:30px;border-right:1px rgba(256,256,256,0.5) solid;padding-right:10px">a</div>
       <div @click="toolChange('1. {tpl}')" class="tool-item">
-        <Icon type="navicon"></Icon>
+       
       </div>
+      <div class="tool-item" @click="dialogVisible = true">&#60;/&#62;</div>
       <div class="tool-save"><span @click="update">保存</span></div>
     </div>
     <div class=markdown-content>
@@ -28,6 +30,26 @@
     <!-- <button class=save-btn type="button" name="button" @click="update">保存</button> -->
     <!-- <button @click="add">增加###</button> -->
   </div>
+  <el-dialog
+      title="提示"
+      :visible.sync="dialogVisible"
+      width="30%">
+      <span>语言：</span>
+      <el-select v-model="lang" placeholder="请选择" style="width:200px">
+        <el-option
+          v-for="item in langs"
+          :key="item.value"
+          :label="item.label"
+          :value="item.value">
+        </el-option>
+      </el-select>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="dialogVisible = false">取 消</el-button>
+        <el-button type="primary" @click="handleOk">确 定</el-button>
+      </span>
+    </el-dialog>
+</div>
+  
 </template>
 
 <script>
@@ -68,7 +90,24 @@ export default {
     return {
       txt:'',
       htmlStr:'',
-      editor:null
+      editor:null,
+      dialogVisible:false,
+      langs:[
+        {
+          value:'html',
+          label:'html'
+        },{
+          value:'javaScript',
+          label:'javaScript'
+        },{
+          value:'css',
+          label:'css'
+        },{
+          value:'json',
+          label:'json'
+        }
+      ],
+      lang:'javaScript'
     }
   },
   watch:{
@@ -91,7 +130,16 @@ export default {
         id:this.$route.params.id,
         str:this.txt
       }).then((response) => {
+        this.$message({
+          message: '保存成功',
+          type: 'success'
+        });
         // this.htmlStr=response.data.data.html;
+      },() => {
+        this.$message({
+          message: '保存失败',
+          type: 'fail'
+        });
       })
     },
     addTitle(num) {
@@ -119,6 +167,11 @@ export default {
     strDown() {
       let selection = this.editor.getSelection();
       this.editor.replaceSelection(selection.toLowerCase());
+    },
+    handleOk() {
+      this.dialogVisible = false;
+      let selection = this.editor.getSelection();
+      this.editor.replaceSelection('```'+this.lang+'\n'+selection+'\n```')
     }
   },
   created() {
@@ -257,7 +310,7 @@ border-radius: 3px;
     flex-direction: row;
     align-items: stretch;
     width:100%;
-    height:100%;
+    height:95%;
     border-bottom:1px #ccc solid;
     border-top:1px #ccc solid;
   }
