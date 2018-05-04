@@ -122,7 +122,7 @@ body{
 }
 h1,h2{
   padding-bottom: 0.3em;
-  border-bottom: 1px solid #eaecef;
+  /* border-bottom: 1px solid #eaecef; */
 }
 
 table{
