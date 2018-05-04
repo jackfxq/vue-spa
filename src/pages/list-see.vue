@@ -251,7 +251,7 @@ border-radius: 3px;
 }
 .category{
   /* width: 300px; */
-  border-right: #ddd 5px solid;
+  border-right: #ddd 1px solid;
   padding:10px 0 0 20px
 }
 .category p{
