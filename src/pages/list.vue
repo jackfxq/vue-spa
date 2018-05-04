@@ -65,7 +65,10 @@ export default {
 <style lang="css" scoped>
   .list-container{
     max-width:900px;
-    margin: 0 auto
+    margin: 0 auto;
+    background: #fff;
+    padding: 0 10px;
+    box-sizing: border-box;
   }
   .list-item{
     padding:10px;

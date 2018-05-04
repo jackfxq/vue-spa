@@ -1,5 +1,5 @@
 <template>
-<div style="width:900px;margin:0 auto;padding-top:40px">
+<div class="editor-container">
   标题：
   <el-input v-model="title" style="padding:10px 0"></el-input>
   摘要：
@@ -251,8 +251,15 @@ border-radius: 3px;
   body{
     font-size:16px;
   }
-  .markdown-container{
+  .editor-container{
     width: 900px;
+    margin: 0px auto;
+    padding: 40px 20px 0 20px;
+    background: rgb(255, 255, 255);
+    box-sizing: border-box;
+  }
+  .markdown-container{
+    width: 100%;
     margin: 10px auto 0 auto;
   .editor-region textarea:focus{
     border:none;
