@@ -239,6 +239,14 @@ line-height: 1.45;
 background-color: #282c34;
 border-radius: 3px;
 } */
+
+
+@media all and (min-width: 321px) and (max-width: 600px){
+    .category{
+        display:none;
+    }
+}
+
 </style>
 
 <style lang="css" scoped>
