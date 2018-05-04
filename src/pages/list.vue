@@ -86,5 +86,11 @@ export default {
   .list-item .abstract{
     font-size: 14px;
     margin: 10px 0 15px 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    overflow: hidden;
+    /* autoprefixer: off */
+    -webkit-box-orient: vertical;
+    /* autoprefixer: on */
   }
 </style>
