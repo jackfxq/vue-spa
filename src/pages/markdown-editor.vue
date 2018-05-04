@@ -1,6 +1,11 @@
 <template>
-<div>
-<div class=markdown-container>
+<div style="width:900px;margin:0 auto;padding-top:40px">
+  标题：
+  <el-input v-model="title" style="padding:10px 0"></el-input>
+  摘要：
+  <el-input type="textarea" v-model="abstract" resize="none" style="padding:10px 0" :rows="5"></el-input>
+  内容：
+  <div class=markdown-container>
     <div class="markdown-tool">
       <h1 @click="addTitle(1)">H1</h1>
       <h1 @click="addTitle(2)">H2</h1>
@@ -13,10 +18,9 @@
       <div @click="strUp" class="tool-item">A</div>
       <div @click="strDown" class="tool-item" style="line-height:30px;border-right:1px rgba(256,256,256,0.5) solid;padding-right:10px">a</div>
       <div @click="toolChange('1. {tpl}')" class="tool-item">
-       
       </div>
       <div class="tool-item" @click="dialogVisible = true">&#60;/&#62;</div>
-      <div class="tool-save"><span @click="update">保存</span></div>
+      <!-- <div class="tool-save"><span @click="update">保存</span></div> -->
     </div>
     <div class=markdown-content>
       <div class=editor-region>
@@ -27,7 +31,7 @@
         <div v-html="htmlStr"></div>
       </div>
     </div>
-    <!-- <button class=save-btn type="button" name="button" @click="update">保存</button> -->
+    <el-button @click="update" type="primary" style="margin:20px">保存</el-button>
     <!-- <button @click="add">增加###</button> -->
   </div>
   <el-dialog
@@ -105,9 +109,14 @@ export default {
         },{
           value:'json',
           label:'json'
+        },{
+          value:'markdown',
+          label:'markdown'
         }
       ],
-      lang:'javaScript'
+      lang:'javaScript',
+      title:'',
+      abstract:''
     }
   },
   watch:{
@@ -126,9 +135,12 @@ export default {
       this.htmlStr=marked(this.txt);
     },
     update() {
+      console.log(this.abstract)
       axios.post('http://111.230.35.213:3000/api/list/update',{
         id:this.$route.params.id,
-        str:this.txt
+        str:this.txt,
+        title:this.title,
+        abstract:this.abstract
       }).then((response) => {
         this.$message({
           message: '保存成功',
@@ -182,6 +194,8 @@ export default {
     }).then((response) => {
       console.log(response)
       this.txt=response.data.data[0].str;
+      this.title=response.data.data[0].title;
+      this.abstract=response.data.data[0].abstract;
       this.editor.setValue(this.txt)
       this.markdownTohtml();
     })
@@ -238,12 +252,16 @@ border-radius: 3px;
     font-size:16px;
   }
   .markdown-container{
-    margin-top:40px;
-    position: fixed;
+    width: 900px;
+    margin: 10px auto 0 auto;
+  .editor-region textarea:focus{
+    border:none;
+  }
+    /* position: fixed;
     top:0;
     left:0;
     width:100%;
-    height:100%;
+    height:100%; */
   }
   .markdown-tool{
     height:40px;
@@ -253,12 +271,14 @@ border-radius: 3px;
     flex-direction:row;
     align-items: center;
     /* justify-content:center; */
-    padding:0 10px;
-    position: fixed;
+    /* padding:0 10px; */
+    /* position: fixed;
     top:0;
-    left:0;
+    left:0; */
     color:#fff;
     font-size:16px;
+        padding: 0 10px;
+    box-sizing: border-box;
   }
   h1,h2,h3,h4{
     padding:0;
@@ -310,30 +330,25 @@ border-radius: 3px;
     flex-direction: row;
     align-items: stretch;
     width:100%;
-    height:95%;
-    border-bottom:1px #ccc solid;
-    border-top:1px #ccc solid;
+    height:600px;
+    /* border-bottom:1px #ccc solid;
+    border-top:1px #ccc solid; */
+    border: #ccc 1px solid;
+    box-sizing: border-box;
   }
   .editor-region{
     /* padding:10px 0 10px 10px; */
+    width:450px;
     height:100%;
     box-sizing: border-box;
   }
-  .editor-region textarea{
-    border:none;
-    width:600px;
-    height:100%;
-    outline:none;
-  }
+
 
   .code-mirror{
-    width:700px;
+    width:450px;
     height:100%;
   }
 
-  .editor-region textarea:focus{
-    border:none;
-  }
   .preview-region{
     padding:10px 20px;
     width:100%;

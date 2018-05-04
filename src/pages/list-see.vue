@@ -164,7 +164,7 @@ h2,h3{
 
 code{
     color: #476582;
-    padding: .25rem .5rem;
+    /* padding: .25rem .5rem; */
     margin: 0;
     font-size: .85em;
     background-color: rgba(27,31,35,.05);
@@ -199,6 +199,14 @@ code[class*=lang-]{
 }
 .lang-javascript::before{
   content:'javaScript';
+  position: absolute;
+  top: .8em;
+  right: 1em;
+  font-size: .75rem;
+  color: hsla(0,0%,100%,.4);
+}
+.lang-markdown::before{
+  content:'markdown';
   position: absolute;
   top: .8em;
   right: 1em;
