@@ -246,7 +246,7 @@ border-radius: 3px;
         display:none;
     }
     .list-see-content{
-      padding:0px 10px;
+      padding:0px 10px !important;
     }
 }
 
