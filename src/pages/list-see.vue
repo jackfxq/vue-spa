@@ -245,6 +245,9 @@ border-radius: 3px;
     .category{
         display:none;
     }
+    .list-see-content{
+      padding:0px 10px;
+    }
 }
 
 </style>
