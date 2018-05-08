@@ -23,7 +23,7 @@
           <el-input v-model="form.userName" style="width:200px"></el-input>
         </el-form-item>
         <el-form-item label="密码:">
-          <el-input v-model="form.pwd" type="passward"  style="width:200px"></el-input>
+          <el-input v-model="form.pwd" type="password"  style="width:200px"></el-input>
         </el-form-item>
       </el-form>
       <div style="text-align:center">
@@ -67,7 +67,7 @@ export default {
                 message: '登录成功',
                 type: 'success'
                 });
-                // location.reload();
+                location.reload();
               }else{
                 this.$message({
                   message: response.data.data,
