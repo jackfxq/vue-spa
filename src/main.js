@@ -10,6 +10,8 @@ import 'element-ui/lib/theme-chalk/index.css';
 
 Vue.use(ElementUI);
 
+window.bus = new Vue();
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

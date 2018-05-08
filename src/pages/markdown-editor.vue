@@ -136,16 +136,21 @@ export default {
     },
     update() {
       console.log(this.abstract)
-      axios.post('http://111.230.35.213:3000/api/list/update',{
+      axios.post('http://111.230.35.213:3000/api/manage/update',{
         id:this.$route.params.id,
         str:this.txt,
         title:this.title,
         abstract:this.abstract
       }).then((response) => {
-        this.$message({
-          message: '保存成功',
-          type: 'success'
-        });
+        if(response.data.code === 0){
+          this.$message({
+            message: '保存成功',
+            type: 'success'
+          });
+        }else{
+          bus.$emit('on-login')
+        }
+        
         // this.htmlStr=response.data.data.html;
       },() => {
         this.$message({
@@ -187,17 +192,22 @@ export default {
     }
   },
   created() {
-    axios.get('http://111.230.35.213:3000/api/list/find',{
+    axios.get('http://111.230.35.213:3000/api/manage/find',{
       params:{
         id:this.$route.params.id
       }
     }).then((response) => {
       console.log(response)
-      this.txt=response.data.data[0].str;
-      this.title=response.data.data[0].title;
-      this.abstract=response.data.data[0].abstract;
-      this.editor.setValue(this.txt)
-      this.markdownTohtml();
+      if(response.data.code === 0 ){
+        this.txt=response.data.data[0].str;
+        this.title=response.data.data[0].title;
+        this.abstract=response.data.data[0].abstract;
+        this.editor.setValue(this.txt)
+        this.markdownTohtml();
+      }else{
+        bus.$emit('on-login')
+      }
+      
     })
 
     this.$nextTick(() => {

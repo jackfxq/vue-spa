@@ -13,7 +13,7 @@
       <div class="time">发表于{{item.time}}</div>
       <p class="abstract">{{item.abstract}}</p>
       <el-button @click="see(item.id)">查看全文</el-button>
-      <!-- <el-button @click="edit(item.id)">编辑</el-button> -->
+      <el-button @click="edit(item.id)">编辑</el-button>
     </div>
     <!-- <el-button @click="create">新增</el-button> -->
   </div>
@@ -31,7 +31,7 @@ export default {
   },
   methods:{
     create() {
-      axios.post('http://111.230.35.213:3000/api/list/create').then((response) => {
+      axios.post('http://111.230.35.213:3000/api/manage/create').then((response) => {
         console.log(response)
         this.list.push({
           id:response.data.data.id
@@ -39,13 +39,18 @@ export default {
       })
     },
     findAll() {
-      axios.get('http://111.230.35.213:3000/api/list/findAll').then((response) => {
+      axios.get('http://111.230.35.213:3000/api/manage/findAll').then((response) => {
         console.log(response)
-        this.list=response.data.data;
-        this.list.map((item) => {
+        if(response.data.code === 0 ){
+          this.list=response.data.data;
+          this.list.map((item) => {
           item.time=moment(item.id*1).format('YYYY-MM-DD HH:mm:ss');
-          return item
-        })
+            return item
+          })
+        }else{
+          bus.$emit('on-login')
+        }
+        
       })
     },
     see(id) {

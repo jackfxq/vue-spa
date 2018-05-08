@@ -4,6 +4,7 @@ import Hello from 'components/Hello'
 import markdownEditor from '../pages/markdown-editor.vue'
 import list from '../pages/list.vue'
 import listSee from '../pages/list-see.vue'
+import manage from '../pages/manage.vue'
 
 Vue.use(Router)
 
@@ -28,6 +29,11 @@ export default new Router({
       path: '/list/see/:id',
       name: 'listSee',
       component: listSee
+    },
+    {
+      path: '/manage',
+      name: 'manage',
+      component: manage
     }
   ]
 })
