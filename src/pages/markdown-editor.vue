@@ -255,6 +255,9 @@ line-height: 1.45;
 background-color: #f6f8fa;
 border-radius: 3px;
 } */
+.preview-region img{
+    width:100%
+  }
 </style>
 
 <style lang="css" scoped>
@@ -375,6 +378,7 @@ border-radius: 3px;
     overflow: hidden;
     overflow-y: auto;
   }
+  
   .save-btn{
     position: absolute;
     width: 100px;

@@ -112,6 +112,9 @@ export default {
 </script>
 
 <style lang="css">
+.list-see-content img{
+  width:100%
+}
 blockquote{
   margin: 2em 0;
 padding-left: 20px;
@@ -288,4 +291,5 @@ border-radius: 3px;
   max-width: 800px;
   height: calc(100vh - 60px);
 }
+
 </style>
