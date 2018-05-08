@@ -255,9 +255,7 @@ line-height: 1.45;
 background-color: #f6f8fa;
 border-radius: 3px;
 } */
-.preview-region img{
-    width:100%
-  }
+
 </style>
 
 <style lang="css" scoped>
