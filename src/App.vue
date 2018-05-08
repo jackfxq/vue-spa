@@ -37,6 +37,7 @@
 
 <script>
 import axios from 'axios'
+axios.defaults.withCredentials=true;
 
 export default {
   name: 'app',
@@ -66,7 +67,7 @@ export default {
                 message: '登录成功',
                 type: 'success'
                 });
-                location.reload();
+                // location.reload();
               }else{
                 this.$message({
                   message: response.data.data,
