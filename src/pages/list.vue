@@ -36,6 +36,7 @@ export default {
         this.list.push({
           id:response.data.data.id
         })
+        
       })
     },
     findAll() {

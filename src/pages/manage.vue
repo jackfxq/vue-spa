@@ -14,8 +14,12 @@
       <p class="abstract">{{item.abstract}}</p>
       <el-button @click="see(item.id)">查看全文</el-button>
       <el-button @click="edit(item.id)">编辑</el-button>
+      <el-button @click="remove(item.id,index)">删除</el-button>
     </div>
-    <!-- <el-button @click="create">新增</el-button> -->
+    <div style="text-align:center;margin:20px 0">
+      <el-button @click="create" type="primary">新 增</el-button>
+    </div>
+    
   </div>
 </template>
 
@@ -36,7 +40,28 @@ export default {
         this.list.push({
           id:response.data.data.id
         })
+        location.hash = '/markdown-editor/'+response.data.data.id
       })
+    },
+    remove(id,index) {
+      this.$confirm('此操作将永久删除, 是否继续?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          axios.post('http://111.230.35.213:3000/api/manage/remove',{id:id}).then((response) => {
+            this.list.splice(index,1)
+            this.$message({
+              type: 'success',
+              message: '删除成功!'
+            });
+            console.log(response)
+          })
+          
+        }).catch(() => {
+                   
+        });
+      
     },
     findAll() {
       axios.get('http://111.230.35.213:3000/api/manage/findAll').then((response) => {
