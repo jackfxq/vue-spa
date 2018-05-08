@@ -285,6 +285,7 @@ border-radius: 3px;
   height: 100vh;
   overflow-y: auto;
   position: relative;
-  max-width: 800px
+  max-width: 800px;
+  height: calc(100vh - 60px);
 }
 </style>

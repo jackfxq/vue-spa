@@ -138,6 +138,7 @@ body{
   position: fixed;
   top: 0;
   padding-right: calc(100vw - 100%);
+  z-index: 100000;
 }
 .header .login{
   float: right;
