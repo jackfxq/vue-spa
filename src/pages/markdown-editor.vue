@@ -20,6 +20,9 @@
       <div @click="toolChange('1. {tpl}')" class="tool-item">
       </div>
       <div class="tool-item" @click="dialogVisible = true">&#60;/&#62;</div>
+      <div class="tool-item" @click="dialogUpload = true">
+          <i class="el-icon-picture-outline"></i>
+      </div>
       <!-- <div class="tool-save"><span @click="update">保存</span></div> -->
     </div>
     <div class=markdown-content>
@@ -51,7 +54,28 @@
         <el-button @click="dialogVisible = false">取 消</el-button>
         <el-button type="primary" @click="handleOk">确 定</el-button>
       </span>
-    </el-dialog>
+  </el-dialog>
+  <el-dialog
+      title="图片上传"
+      :visible.sync="dialogUpload"
+      width="500px">
+      <div style="text-align:center">
+        <el-upload
+          class="upload-demo"
+          drag
+          action="http://111.230.35.213:3000/upload/image"
+          :on-success="uploadSuccess"
+          multiple>
+          <i class="el-icon-upload"></i>
+          <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
+        </el-upload>
+      </div>
+      
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="dialogUpload = false">取 消</el-button>
+        <el-button type="primary" @click="handleUploadOk">确 定</el-button>
+      </span>
+  </el-dialog>
 </div>
   
 </template>
@@ -116,7 +140,9 @@ export default {
       ],
       lang:'javaScript',
       title:'',
-      abstract:''
+      abstract:'',
+      dialogUpload:false,
+      imageSrc:''
     }
   },
   watch:{
@@ -189,6 +215,14 @@ export default {
       this.dialogVisible = false;
       let selection = this.editor.getSelection();
       this.editor.replaceSelection('```'+this.lang+'\n'+selection+'\n```')
+    },
+    handleUploadOk() {
+      this.dialogUpload = false;
+      this.editor.replaceSelection(`![](http://111.230.35.213:3000${this.imageSrc})`)
+    },
+    uploadSuccess(res) {
+      console.log(res)
+      this.imageSrc= res.data.imageSrc;
     }
   },
   created() {
